@@ -20,7 +20,6 @@ Game::isCheckMate()
     return checkMate;
 }
 
-
 bool
 Game::isStaleMate()
 {

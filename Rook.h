@@ -10,12 +10,10 @@
 class Rook : public Piece
 {
 public:
-    Rook(ChessBoard& ownerBoard, Game& game, bool kingOrNot, bool whiteOrNot, int initRow, int initCol);
+    Rook(ChessBoard& ownerBoard, Game& game,
+        bool kingOrNot, bool whiteOrNot, int initRow, int initCol);
     void getAllPossibleMoves(SetOfCoords& possibleMoves) override;
     ~Rook(){}
-    
-private:
-    
 };
 
 #endif

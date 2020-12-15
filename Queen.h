@@ -10,12 +10,10 @@
 class Queen : public Piece
 {
 public:
-    Queen(ChessBoard& ownerBoard, Game& game, bool kingOrNot, bool whiteOrNot, int initRow, int initCol);
+    Queen(ChessBoard& ownerBoard, Game& game,
+        bool kingOrNot, bool whiteOrNot, int initRow, int initCol);
     void getAllPossibleMoves(SetOfCoords& possibleMoves) override;
      ~Queen(){}
-
-private:
-    
 };
 
 #endif

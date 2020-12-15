@@ -2,9 +2,12 @@
 
 #include "Pawn.h"
 
-Pawn::Pawn(ChessBoard& ownerBoard, Game& game, bool kingOrNot, bool whiteOrNot, int initRow, int initCol) : Piece(ownerBoard, game, kingOrNot, whiteOrNot, initRow, initCol)
+Pawn::Pawn(ChessBoard& ownerBoard, Game& game,
+            bool kingOrNot, bool whiteOrNot, int initRow, int initCol)
+    : Piece(ownerBoard, game, kingOrNot, whiteOrNot, initRow, initCol)
 {
     name = "Pawn";
+
     if (white)
     {
         symbol = "wp";
@@ -13,6 +16,7 @@ Pawn::Pawn(ChessBoard& ownerBoard, Game& game, bool kingOrNot, bool whiteOrNot, 
     {
         symbol = "bp";
     }
+
     firstMove = true;
 }
 
@@ -38,7 +42,6 @@ Pawn::getAllPossibleMoves(SetOfCoords& possibleMoves)
             {
                 temp = std::make_pair(row, col);
                 possibleMoves.insert(temp);
-                //std::cout << "searchFoward: Coord added! [" << row << "][" << col << "] (2 squares north)" << std::endl;
             }
         }
 
@@ -50,29 +53,31 @@ Pawn::getAllPossibleMoves(SetOfCoords& possibleMoves)
         {
             temp = std::make_pair(row, col);
             possibleMoves.insert(temp);
-            //std::cout << "searchFoward: Coord added! [" << row << "][" << col << "] (north)" << std::endl;
         }
 
         // Check if opponents piece present at north west diagnal
         
         row = curRow - 1;
         col = curCol - 1;
-        if ((row>=INDEX_MIN) && (col>=INDEX_MIN) && (board[row][col]!=nullptr) && (board[row][col]->isWhite()!=white))
+        if ((row>=INDEX_MIN) && (col>=INDEX_MIN)
+            && (board[row][col]!=nullptr)
+            && (board[row][col]->isWhite()!=white))
         {
             temp = std::make_pair(row, col);
             possibleMoves.insert(temp);
-            //std::cout << "searchFoward: Coord added! [" << row << "][" << col << "] (north west)" << std::endl;
         }
 
         // Check if opponents piece present at north east diagnal
         
         row = curRow - 1;
         col = curCol + 1;
-        if ((row>=INDEX_MIN) && (col<=INDEX_MAX) && (board[row][col]!=nullptr) && (board[row][col]->isWhite()!=white))
+        if ((row>=INDEX_MIN)
+            && (col<=INDEX_MAX)
+            && (board[row][col]!=nullptr)
+            && (board[row][col]->isWhite()!=white))
         {
             temp = std::make_pair(row, col);
             possibleMoves.insert(temp);
-            //std::cout << "searchFoward: Coord added! [" << row << "][" << col << "] (north east)" << std::endl;
         }
     }
 
@@ -90,7 +95,6 @@ Pawn::getAllPossibleMoves(SetOfCoords& possibleMoves)
             {
                 temp = std::make_pair(row, col);
                 possibleMoves.insert(temp);
-                //std::cout << "searchFoward: Coord added! [" << row << "][" << col << "] (2 squares south)" << std::endl;
             }
         }
 
@@ -102,29 +106,32 @@ Pawn::getAllPossibleMoves(SetOfCoords& possibleMoves)
         {
             temp = std::make_pair(row, col);
             possibleMoves.insert(temp);
-            //std::cout << "searchFoward: Coord added! [" << row << "][" << col << "] (south)" << std::endl;
         }
 
         // Check if opponents piece present at south west diagnal
         
         row = curRow + 1;
         col = curCol - 1;
-        if ((row<=INDEX_MAX) && (col>=INDEX_MIN) && (board[row][col]!=nullptr) && (board[row][col]->isWhite()!=white))
+        if ((row<=INDEX_MAX)
+            && (col>=INDEX_MIN)
+            && (board[row][col]!=nullptr)
+            && (board[row][col]->isWhite()!=white))
         {
             temp = std::make_pair(row, col);
             possibleMoves.insert(temp);
-            //std::cout << "searchFoward: Coord added! [" << row << "][" << col << "] (south west)" << std::endl;
         }
 
         // Check if opponents piece present at south east diagnal
         
         row = curRow + 1;
         col = curCol + 1;
-        if ((row<=INDEX_MAX) && (col<=INDEX_MAX) && (board[row][col]!=nullptr) && (board[row][col]->isWhite()!=white))
+        if ((row<=INDEX_MAX)
+            && (col<=INDEX_MAX)
+            && (board[row][col]!=nullptr)
+            && (board[row][col]->isWhite()!=white))
         {
             temp = std::make_pair(row, col);
             possibleMoves.insert(temp);
-            //std::cout << "searchFoward: Coord added! [" << row << "][" << col << "] (south east)" << std::endl;
         }
     }
 }

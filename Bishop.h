@@ -15,13 +15,10 @@
 class Bishop : public Piece
 {
 public:
-    Bishop(ChessBoard& ownerBoard, Game& game, bool kingOrNot, bool whiteOrNot, int initRow, int initCol);
+    Bishop(ChessBoard& ownerBoard, Game& game,
+            bool kingOrNot, bool whiteOrNot, int initRow, int initCol);
     void getAllPossibleMoves(SetOfCoords& possibleMoves) override;
     ~Bishop(){}
-    
-private:
-    
-
 };
 
 #endif

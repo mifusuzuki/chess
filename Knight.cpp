@@ -2,10 +2,12 @@
 
 #include "Knight.h"
 
-Knight::Knight(ChessBoard& ownerBoard, Game& game, bool kingOrNot, bool whiteOrNot, int initRow, int initCol) : Piece(ownerBoard, game, kingOrNot, whiteOrNot, initRow, initCol)
+Knight::Knight(ChessBoard& ownerBoard, Game& game,
+                bool kingOrNot, bool whiteOrNot, int initRow, int initCol)
+    : Piece(ownerBoard, game, kingOrNot, whiteOrNot, initRow, initCol)
 {
-
     name = "Knight";
+
     if (white)
     {
         symbol = "wk";
@@ -42,7 +44,6 @@ Knight::getAllPossibleMoves(SetOfCoords& possibleMoves)
 
             temp = std::make_pair(row, col);
             possibleMoves.insert(temp);
-            //std::cout << "searchL: Coord added! [" << row << "][" << col << "] (north --> west)" << std::endl;
         }
     }
 
@@ -60,7 +61,6 @@ Knight::getAllPossibleMoves(SetOfCoords& possibleMoves)
 
             temp = std::make_pair(row, col);
             possibleMoves.insert(temp);
-            //std::cout << "searchL: Coord added! [" << row << "][" << col << "] (north --> east)" << std::endl;
         }
     }
 
@@ -78,7 +78,6 @@ Knight::getAllPossibleMoves(SetOfCoords& possibleMoves)
 
             temp = std::make_pair(row, col);
             possibleMoves.insert(temp);
-            //std::cout << "searchL: Coord added! [" << row << "][" << col << "] (south --> west)" << std::endl;
         }
     }
 
@@ -96,7 +95,6 @@ Knight::getAllPossibleMoves(SetOfCoords& possibleMoves)
 
             temp = std::make_pair(row, col);
             possibleMoves.insert(temp);
-            //std::cout << "searchL: Coord added! [" << row << "][" << col << "] (south --> east)" << std::endl;
         }
     }
 
@@ -114,7 +112,6 @@ Knight::getAllPossibleMoves(SetOfCoords& possibleMoves)
 
             temp = std::make_pair(row, col);
             possibleMoves.insert(temp);
-            //std::cout << "searchL: Coord added! [" << row << "][" << col << "] (west --> north)" << std::endl;
         }
     }
 
@@ -132,7 +129,6 @@ Knight::getAllPossibleMoves(SetOfCoords& possibleMoves)
 
             temp = std::make_pair(row, col);
             possibleMoves.insert(temp);
-            //std::cout << "searchL: Coord added! [" << row << "][" << col << "] (west --> south)" << std::endl;
         }
     }
 
@@ -150,7 +146,6 @@ Knight::getAllPossibleMoves(SetOfCoords& possibleMoves)
 
             temp = std::make_pair(row, col);
             possibleMoves.insert(temp);
-            //std::cout << "searchL: Coord added! [" << row << "][" << col << "] (east --> north)" << std::endl;
         }
     }
 
@@ -168,8 +163,6 @@ Knight::getAllPossibleMoves(SetOfCoords& possibleMoves)
 
             temp = std::make_pair(row, col);
             possibleMoves.insert(temp);
-            //std::cout << "searchL: Coord added! [" << row << "][" << col << "] (east --> south)" << std::endl;
         }
     }
-    
 }

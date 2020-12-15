@@ -10,7 +10,8 @@
 class Pawn : public Piece
 {
 public:
-    Pawn(ChessBoard& ownerBoard, Game& game, bool kingOrNot, bool whiteOrNot, int initRow, int initCol);
+    Pawn(ChessBoard& ownerBoard, Game& game,
+        bool kingOrNot, bool whiteOrNot, int initRow, int initCol);
     void getAllPossibleMoves(SetOfCoords& possibleMoves) override;
     ~Pawn(){}
     

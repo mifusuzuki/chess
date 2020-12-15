@@ -2,8 +2,12 @@
 
 #include "King.h"
 
-King::King(ChessBoard& ownerBoard, Game& game, bool kingOrNot, bool whiteOrNot, int initRow, int initCol) : Piece(ownerBoard, game, kingOrNot, whiteOrNot, initRow, initCol)
+King::King(ChessBoard& ownerBoard, Game& game,
+            bool kingOrNot, bool whiteOrNot, int initRow, int initCol)
+    : Piece(ownerBoard, game, kingOrNot, whiteOrNot, initRow, initCol)
 {
+    name = "King";
+
     if (white)
     {
         symbol = "wK";

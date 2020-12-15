@@ -1,14 +1,14 @@
-
 #include <iostream>
-#include <set>
-#include <utility>
 
 #include "Bishop.h"
 #include "Constants.h"
 
-Bishop::Bishop(ChessBoard& ownerBoard, Game& game, bool kingOrNot, bool whiteOrNot, int initRow, int initCol) : Piece(ownerBoard, game, kingOrNot, whiteOrNot, initRow, initCol)
+Bishop::Bishop(ChessBoard& ownerBoard, Game& game,
+                bool kingOrNot,bool whiteOrNot, int initRow, int initCol)
+    : Piece(ownerBoard, game, kingOrNot, whiteOrNot, initRow, initCol)
 {
     name = "Bishop";
+
     if (white)
     {
         symbol = "wb";
@@ -22,5 +22,6 @@ Bishop::Bishop(ChessBoard& ownerBoard, Game& game, bool kingOrNot, bool whiteOrN
 void
 Bishop::getAllPossibleMoves(SetOfCoords& possibleMoves)
 {
+    // Base class Piece's member function
     searchDiagnal(possibleMoves);
 }

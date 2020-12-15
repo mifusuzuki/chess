@@ -27,7 +27,6 @@ ChessBoard::configureBoard()
         {
             board[i][j] = nullptr;
         }
-
     }
 
     // Create all chess pieces on the heap and place them on the board
@@ -46,12 +45,14 @@ ChessBoard::configureBoard()
     board[0][5] = new Bishop(*this, curGame, notKing, black, 0, 5);
     board[0][6] = new Knight(*this, curGame, notKing, black, 0, 6);
     board[0][7] = new Rook(*this, curGame, notKing, black, 0, 7);
+
     for (int i=0; i<BOARD_LENGTH; i++)
     {
         board[1][i] = new Pawn(*this, curGame, notKing, black, 1, i);
     }
 
     // White pieces
+
     bool white = true;
     board[7][0] = new Rook(*this, curGame, notKing, white, 7, 0);
     board[7][1] = new Knight(*this, curGame, notKing, white, 7, 1);
@@ -61,6 +62,7 @@ ChessBoard::configureBoard()
     board[7][5] = new Bishop(*this, curGame, notKing, white, 7, 5);
     board[7][6] = new Knight(*this, curGame, notKing, white, 7, 6);
     board[7][7] = new Rook(*this, curGame, notKing, white, 7, 7);
+
     for (int i=0; i<BOARD_LENGTH; i++)
     {
         board[6][i] = new Pawn(*this, curGame, notKing, white, 6, i);
@@ -133,11 +135,11 @@ ChessBoard::printBoard()
         }
         std::cout << std::endl;
     }
-
 }
 
 bool
-ChessBoard::isPermittedMove(int rowOrigin, int colOrigin, int rowDest, int colDest)
+ChessBoard::isPermittedMove(int rowOrigin, int colOrigin,
+                            int rowDest, int colDest)
 {
     for (long unsigned int move=0; move<permittedMoves.size(); move++)
     {
@@ -146,27 +148,33 @@ ChessBoard::isPermittedMove(int rowOrigin, int colOrigin, int rowDest, int colDe
             && permittedMoves[move][2]==rowDest
             && permittedMoves[move][3]==colDest)
         {
+            // Matching move found in pemittedMoves
             return true;
         }
     }
-    // No move in pemittedMoves matched the given move
+
+    // No match found in pemittedMoves
     return false;
 }
 
 bool
-ChessBoard::isValidMove(int rowOrigin, int colOrigin, int rowDest, int colDest)
+ChessBoard::isValidMove(int rowOrigin, int colOrigin,
+                        int rowDest, int colDest)
 {
     /****************** Case where king is in check *******************/
+
     if (curGame.isWhitesTurn() && whiteKing->isInCheck())
     {
         if (isPermittedMove(rowOrigin, colOrigin, rowDest, colDest))
         {
+            // This is a valid move that unchecks the King
             permittedMoves.clear();
             whiteKing->setInCheck(false);
             return true;
         }
-        else // Is not a permitted move
+        else 
         {
+            // This move does not uncheck the King
             return false;
         }
     }
@@ -175,12 +183,14 @@ ChessBoard::isValidMove(int rowOrigin, int colOrigin, int rowDest, int colDest)
     {
         if (isPermittedMove(rowOrigin, colOrigin, rowDest, colDest))
         {
+            // This is a valid move that unchecks the King
             permittedMoves.clear();
             blackKing->setInCheck(false);
             return true;
         }
-        else // Is not a permitted move
+        else
         {
+            // This move does not uncheck the King
             return false;
         }
     }
@@ -188,25 +198,30 @@ ChessBoard::isValidMove(int rowOrigin, int colOrigin, int rowDest, int colDest)
     
     /***************** Case where king is not in check *****************/
 
-    Coord destination(rowDest, colDest);
-    SetOfCoords possibleMoves;
+    // Get all possible moves the piece at origin can make
 
+    SetOfCoords possibleMoves;
     board[rowOrigin][colOrigin]->getAllPossibleMoves(possibleMoves);
 
-    // Check if any pair in the set match
+    // Check if the destination given matches any of the possible moves
 
+    Coord destination(rowDest, colDest);
     for (auto it = possibleMoves.begin(); it != possibleMoves.end(); ++it)
     {
         if (*it == destination)
         {
+            // Match found
             return true;
         }
     }
+
+    // Match not found
     return false;
 }
 
 void
-ChessBoard::pieceRelocate(int rowOrigin, int colOrigin, int rowDest, int colDest)
+ChessBoard::pieceRelocate(int rowOrigin, int colOrigin, int rowDest,
+                            int colDest)
 {
     // Print Narration
 
@@ -218,6 +233,7 @@ ChessBoard::pieceRelocate(int rowOrigin, int colOrigin, int rowDest, int colDest
     {
         std::cout << "Black's ";
     }
+
     std::cout << board[rowOrigin][colOrigin]->getName() 
             << " moves from " << getPos(rowOrigin, colOrigin)
             << " to " << getPos(rowDest, colDest);
@@ -229,6 +245,7 @@ ChessBoard::pieceRelocate(int rowOrigin, int colOrigin, int rowDest, int colDest
         // Conitnue printing narration
 
         std::cout << " taking ";
+
         if (board[rowDest][colDest]->isWhite())
         {
             std::cout << "White's ";
@@ -237,6 +254,7 @@ ChessBoard::pieceRelocate(int rowOrigin, int colOrigin, int rowDest, int colDest
         {
             std::cout << "Black's ";
         }
+
         std::cout << board[rowDest][colDest]->getName();
 
         // Destroy heap allocated piece that was captured
@@ -251,7 +269,7 @@ ChessBoard::pieceRelocate(int rowOrigin, int colOrigin, int rowDest, int colDest
     board[rowDest][colDest] = board[rowOrigin][colOrigin];
     board[rowOrigin][colOrigin] = nullptr;
     
-    // Update info
+    // Update the relocated piece's object info
 
     board[rowDest][colDest]->setRow(rowDest);
     board[rowDest][colDest]->setCol(colDest);
@@ -262,6 +280,8 @@ ChessBoard::pieceRelocate(int rowOrigin, int colOrigin, int rowDest, int colDest
 void
 ChessBoard::submitMove(std::string origin, std::string destination)
 {
+    // Initial checks before submiting move
+
     if (curGame.isCheckMate() || curGame.isStaleMate())
     {
         std::cerr << "[Error] Game is finished already!" << std::endl;
@@ -301,6 +321,7 @@ ChessBoard::submitMove(std::string origin, std::string destination)
         {
             std::cout << "Black's ";
         }
+
         std::cout << board[rowOrigin][colOrigin]->getName() 
                 << " cannot move to " << getPos(rowDest, colDest)
                 << "!" << std::endl;
@@ -314,12 +335,11 @@ ChessBoard::submitMove(std::string origin, std::string destination)
     // Switch player in turn
     curGame.switchPlayer();
 
-    // Check if new player's King is in check
+    // Check if the current player's King is in check
     
     if (isKingInCheck())
     {
-        // Check if King can be unchecked
-        if (canKingBeUnchecked())
+        if (canKingBeUnchecked()) // King can be unchecked
         {
             // Print Narration
         
@@ -353,7 +373,8 @@ ChessBoard::submitMove(std::string origin, std::string destination)
         }
     }
 
-    // Check if new player is in stalemate
+    // Check if the current player is in stalemate
+
     if (!canCurPlayerMove())
     {
         if(curGame.isWhitesTurn())
@@ -369,18 +390,18 @@ ChessBoard::submitMove(std::string origin, std::string destination)
             return;
         }
     }
-
-
 }
 
 bool
 ChessBoard::canCurPlayerMove()
 {
+    // Get current player's pieces
     SetOfCoords curPlayersCoords;
-    SetOfCoords possibleMoves;
-    
     getCurPlayersCoords(curPlayersCoords);
 
+    // Continuously add the possible moves to the set
+
+    SetOfCoords possibleMoves;
     for (auto i = curPlayersCoords.begin(); i != curPlayersCoords.end(); ++i)
     {
         int row = (*i).first;
@@ -388,17 +409,19 @@ ChessBoard::canCurPlayerMove()
         board[row][col]->getAllPossibleMoves(possibleMoves);
     }
 
-    if (possibleMoves.size() == 0)
+    // Check there is at least 1 possible move in set
+
+    if (possibleMoves.size() <= 0)
     {
         return false;
     }
-
     return true;
 }
 
 void
 ChessBoard::simulateMove(int rowOrigin, int colOrigin, int rowDest, int colDest)
 {
+    // Save the chess piece at destination if there are any
     Piece* savedPiece = board[rowDest][colDest];
 
     // Relocate piece
@@ -416,6 +439,7 @@ ChessBoard::simulateMove(int rowOrigin, int colOrigin, int rowDest, int colDest)
     }
 
     // Revert the board
+
     board[rowOrigin][colOrigin] = board[rowDest][colDest];
     if (savedPiece == nullptr)
     {
@@ -452,11 +476,14 @@ ChessBoard::canKingBeUnchecked()
             int rowDest = (*j).first;
             int colDest = (*j).second;
             
+            // Check what would happen if piece was to be moved
+            // If it can uncheck King, add coord to permittedMoves container
             simulateMove(rowOrigin, colOrigin, rowDest, colDest);
         }
     }
     
     // Check if there are any permmited moves for the next round
+
     if (permittedMoves.size() == 0)
     {
         // King cannot be unchecked
@@ -474,7 +501,8 @@ ChessBoard::canPieceBePlayed(int row, int col)
 
     if (board[row][col] == nullptr)
     {
-        std::cout << "There is no piece at position " << getPos(row, col) << "!" << std::endl;
+        std::cout << "There is no piece at position " << getPos(row, col) << "!"
+                    << std::endl;
         return false;
     }
 
@@ -483,7 +511,6 @@ ChessBoard::canPieceBePlayed(int row, int col)
     if (!board[row][col]->isWhite() && curGame.isWhitesTurn())
     {
         // Black trying to play in white's turn
-
         std::cout << "It is not Black's turn to move!" << std::endl;
         return false;
     }
@@ -491,7 +518,6 @@ ChessBoard::canPieceBePlayed(int row, int col)
     if (board[row][col]->isWhite() && !curGame.isWhitesTurn())
     {
         // White trying to play in black's turn
-
         std::cout << "It is not White's turn to move!" << std::endl;
         return false;
     }
@@ -518,8 +544,10 @@ ChessBoard::getOpponentsCoords(SetOfCoords& opponentsCoords)
     {
         for (int j=INDEX_MIN; j<=INDEX_MAX; j++)
         {
-            if (board[i][j]!=nullptr && (board[i][j]->isWhite() != curGame.isWhitesTurn()))
+            if (board[i][j]!=nullptr
+                && (board[i][j]->isWhite() != curGame.isWhitesTurn()))
             {
+                // Found opponent's piece
                 Coord tempCoord = std::make_pair(i, j);
                 opponentsCoords.insert(tempCoord);
             }
@@ -534,8 +562,10 @@ ChessBoard::getCurPlayersCoords(SetOfCoords& currentPlayersCoords)
     {
         for (int j=INDEX_MIN; j<=INDEX_MAX; j++)
         {
-            if (board[i][j]!=nullptr && (board[i][j]->isWhite() == curGame.isWhitesTurn()))
+            if (board[i][j]!=nullptr
+                && (board[i][j]->isWhite() == curGame.isWhitesTurn()))
             {
+                // Found current player's piece
                 Coord tempCoord = std::make_pair(i, j);
                 currentPlayersCoords.insert(tempCoord);
             }
@@ -552,11 +582,13 @@ ChessBoard::getAllCoordsOpponentCanReach(SetOfCoords& reachedCoords)
     getOpponentsCoords(opponentsCoords);
 
     // Add all possible coord the opponent's non-king pieces could reach
+
     for (auto it = opponentsCoords.begin(); it != opponentsCoords.end(); ++it)
     {
         if (!board[(*it).first][(*it).second]->isKing())
         {
-            board[(*it).first][(*it).second]->getAllPossibleMoves(reachedCoords);
+            board[(*it).first][(*it).second]->
+            getAllPossibleMoves(reachedCoords);
         }
 
         // King found
@@ -565,10 +597,10 @@ ChessBoard::getAllCoordsOpponentCanReach(SetOfCoords& reachedCoords)
     }
 
     // Add all neighbouring coordinates of the opponent's king
-    Coord tempCoord;
 
     // Add north of opponent's King
     
+    Coord tempCoord;
     int row = rowKing - 1;
     int col = colKing;
     if (row >= INDEX_MIN)
@@ -651,33 +683,37 @@ ChessBoard::getAllCoordsOpponentCanReach(SetOfCoords& reachedCoords)
 bool
 ChessBoard::isKingInCheck(Coord* coord)
 {
-    SetOfCoords dangerousCoords;
-    getAllCoordsOpponentCanReach(dangerousCoords);
-
     int rowKing;
     int colKing;
     Coord kingCoord;
+
+    // Get all coordinates the opponent can reach
+    SetOfCoords dangerousCoords;
+    getAllCoordsOpponentCanReach(dangerousCoords);
     
-    // Check if current King (white) is in check
+    // Check if current King (white) is in check (post-move)
     if (coord == nullptr && curGame.isWhitesTurn())
     {
         rowKing = whiteKing->getRow();
         colKing = whiteKing->getCol();
         kingCoord = std::make_pair(rowKing, colKing);
     }
-    // Check if current King (black) is in check
+    // Check if current King (black) is in check (post-move)
     else if (coord == nullptr && !curGame.isWhitesTurn())
     {
         rowKing = blackKing->getRow();
         colKing = blackKing->getCol();
         kingCoord = std::make_pair(rowKing, colKing);
     }
-    // Check if given coord would put current king in check
+    // Check if given coord would put current king in check (pre-move)
+    // This particular bit is called in King.cpp to ensure the King is not
+    // walking into check
     else
     {
         kingCoord = *coord;
     }
 
+    // Check if King's coordinate macthes any of the dangerous coords
     if (dangerousCoords.find(kingCoord)==dangerousCoords.end())
     {
         return false;
