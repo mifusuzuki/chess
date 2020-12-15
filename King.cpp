@@ -15,7 +15,7 @@ King::King(ChessBoard& ownerBoard, Game& game, bool kingOrNot, bool whiteOrNot, 
 }
 
 void
-King::findPossibleMoves(SetOfCoords& possibleMoves)
+King::getAllPossibleMoves(SetOfCoords& possibleMoves)
 {
     // Find all available squares on diagnal (no leap over other pieces)
 
@@ -32,7 +32,7 @@ King::findPossibleMoves(SetOfCoords& possibleMoves)
     
     if (row>=INDEX_MIN
         && (board[row][col]==nullptr || (board[row][col]->isWhite()!=white))
-        && !curBoard.isKingInCheck(tempCoord))
+        && !curBoard.isKingInCheck(&tempCoord))
     {
         // This is a safe coord for King to move to
         possibleMoves.insert(tempCoord);
@@ -46,7 +46,7 @@ King::findPossibleMoves(SetOfCoords& possibleMoves)
     
     if (row<=INDEX_MAX
         && (board[row][col]==nullptr || (board[row][col]->isWhite()!=white))
-        && !curBoard.isKingInCheck(tempCoord))
+        && !curBoard.isKingInCheck(&tempCoord))
     {
         // This is a safe coord for King to move to
         possibleMoves.insert(tempCoord);
@@ -60,7 +60,7 @@ King::findPossibleMoves(SetOfCoords& possibleMoves)
     
     if (col>=INDEX_MIN
         && (board[row][col]==nullptr || (board[row][col]->isWhite()!=white))
-        && !curBoard.isKingInCheck(tempCoord))
+        && !curBoard.isKingInCheck(&tempCoord))
     {
         // This is a safe coord for King to move to
         possibleMoves.insert(tempCoord);
@@ -74,7 +74,7 @@ King::findPossibleMoves(SetOfCoords& possibleMoves)
     
     if (col<=INDEX_MAX 
         && (board[row][col]==nullptr || (board[row][col]->isWhite()!=white))
-        && !curBoard.isKingInCheck(tempCoord))
+        && !curBoard.isKingInCheck(&tempCoord))
     {
         // This is a safe coord for King to move to
         possibleMoves.insert(tempCoord);
@@ -88,7 +88,7 @@ King::findPossibleMoves(SetOfCoords& possibleMoves)
     
     if (row >= INDEX_MIN && col >= INDEX_MIN 
         && (board[row][col]==nullptr || (board[row][col]->isWhite()!=white))
-        && !curBoard.isKingInCheck(tempCoord))
+        && !curBoard.isKingInCheck(&tempCoord))
     {
         // This is a safe coord for King to move to
         possibleMoves.insert(tempCoord);
@@ -102,7 +102,7 @@ King::findPossibleMoves(SetOfCoords& possibleMoves)
     
     if (row >= INDEX_MIN && col <= INDEX_MAX
         && (board[row][col]==nullptr || (board[row][col]->isWhite()!=white))
-        && !curBoard.isKingInCheck(tempCoord))
+        && !curBoard.isKingInCheck(&tempCoord))
     {
         // This is a safe coord for King to move to
         possibleMoves.insert(tempCoord);
@@ -116,7 +116,7 @@ King::findPossibleMoves(SetOfCoords& possibleMoves)
     
     if (row<=INDEX_MAX && col>=INDEX_MIN
         && (board[row][col]==nullptr || (board[row][col]->isWhite()!=white))
-        && !curBoard.isKingInCheck(tempCoord))
+        && !curBoard.isKingInCheck(&tempCoord))
     {
         // This is a safe coord for King to move to
         possibleMoves.insert(tempCoord);
@@ -130,7 +130,7 @@ King::findPossibleMoves(SetOfCoords& possibleMoves)
     
     if (row<=INDEX_MAX && col<=INDEX_MAX
         && (board[row][col]==nullptr || (board[row][col]->isWhite()!=white))
-        && !curBoard.isKingInCheck(tempCoord))
+        && !curBoard.isKingInCheck(&tempCoord))
     {
         // This is a safe coord for King to move to
         possibleMoves.insert(tempCoord);

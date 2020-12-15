@@ -11,9 +11,8 @@ class Knight : public Piece
 {
 public:
     Knight(ChessBoard& ownerBoard, Game& game, bool kingOrNot, bool whiteOrNot, int initRow, int initCol);
+    void getAllPossibleMoves(SetOfCoords& possibleMoves) override;
     ~Knight(){}
-
-    void findPossibleMoves(SetOfCoords& possibleMoves) override;
     
 private:
     

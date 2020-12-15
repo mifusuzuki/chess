@@ -16,7 +16,7 @@ Queen::Queen(ChessBoard& ownerBoard, Game& game, bool kingOrNot, bool whiteOrNot
 }
 
 void
-Queen::findPossibleMoves(SetOfCoords& possibleMoves)
+Queen::getAllPossibleMoves(SetOfCoords& possibleMoves)
 {
     searchDiagnal(possibleMoves);
     searchVerticalHorizontal(possibleMoves);

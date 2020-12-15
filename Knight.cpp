@@ -17,7 +17,7 @@ Knight::Knight(ChessBoard& ownerBoard, Game& game, bool kingOrNot, bool whiteOrN
 }
 
 void
-Knight::findPossibleMoves(SetOfCoords& possibleMoves)
+Knight::getAllPossibleMoves(SetOfCoords& possibleMoves)
 {
     // Find all available squares on L-shape path
     // i.e. 2 steps in one direction --> 1 step in another

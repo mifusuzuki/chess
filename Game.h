@@ -12,18 +12,15 @@ public:
     bool isCheckMate();
     bool isStaleMate();
     void switchPlayer();
-    void setBlackKingInCheck(bool checkOrNot);
-    void setWhiteKingInCheck(bool checkOrNot);
     void setCheckMate();
     void setStaleMate();
     void printGameStatus() const;
     void configureGame();
+    
 private:
     bool whitesTurn;
     bool checkMate;
     bool staleMate;
-    bool blackKingInCheck;
-    bool whiteKingInCheck;
     
     //bool result;
 };

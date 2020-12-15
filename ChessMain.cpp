@@ -275,7 +275,6 @@ int main() {
 	cb.submitMove("D3", "G6");
     cb.printBoard();
 	cout << '\n';
-    
 
 	return 0;
 }

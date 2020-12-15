@@ -40,18 +40,6 @@ Game::switchPlayer()
 }
 
 void
-Game::setBlackKingInCheck(bool checkOrNot)
-{
-    blackKingInCheck = checkOrNot;
-}
-
-void
-Game::setWhiteKingInCheck(bool checkOrNot)
-{
-    whiteKingInCheck = checkOrNot;
-}
-
-void
 Game::setCheckMate()
 {
     checkMate = true;
@@ -78,8 +66,6 @@ Game::configureGame()
     whitesTurn = true;
     checkMate = false;
     staleMate = false;
-    blackKingInCheck = false;
-    whiteKingInCheck = false;
 
     std::cout << "A new game is started!" << std::endl;
 }

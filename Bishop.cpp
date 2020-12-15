@@ -20,7 +20,7 @@ Bishop::Bishop(ChessBoard& ownerBoard, Game& game, bool kingOrNot, bool whiteOrN
 }
 
 void
-Bishop::findPossibleMoves(SetOfCoords& possibleMoves)
+Bishop::getAllPossibleMoves(SetOfCoords& possibleMoves)
 {
     searchDiagnal(possibleMoves);
 }

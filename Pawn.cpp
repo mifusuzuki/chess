@@ -17,7 +17,7 @@ Pawn::Pawn(ChessBoard& ownerBoard, Game& game, bool kingOrNot, bool whiteOrNot, 
 }
 
 void
-Pawn::findPossibleMoves(SetOfCoords& possibleMoves)
+Pawn::getAllPossibleMoves(SetOfCoords& possibleMoves)
 {
     int row;
     int col;

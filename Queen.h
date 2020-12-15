@@ -11,9 +11,8 @@ class Queen : public Piece
 {
 public:
     Queen(ChessBoard& ownerBoard, Game& game, bool kingOrNot, bool whiteOrNot, int initRow, int initCol);
-    ~Queen(){}
-
-    void findPossibleMoves(SetOfCoords& possibleMoves) override;
+    void getAllPossibleMoves(SetOfCoords& possibleMoves) override;
+     ~Queen(){}
 
 private:
     

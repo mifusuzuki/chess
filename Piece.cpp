@@ -7,7 +7,9 @@ Piece::Piece(ChessBoard& ownerBoard, Game& game, bool kingOrNot, bool whiteOrNot
     white(whiteOrNot),
     curRow(initRow),
     curCol(initCol)
-{}
+{
+    inCheck = false;
+}
 
 std::string
 Piece::getSymbol()
@@ -58,24 +60,15 @@ Piece::isWhite()
 }
 
 bool
-Piece::isValidMove(int rowDest, int colDest)
+Piece::isInCheck()
 {
-    Coord destination(rowDest, colDest);
+    return inCheck;
+}
 
-    SetOfCoords possibleMoves;
-    findPossibleMoves(possibleMoves);
-
-    // Check if any pair in the set match
-
-    for (auto it = possibleMoves.begin(); it != possibleMoves.end(); ++it)
-        if (*it == destination)
-        {
-            //std::cout << "isValidMove: This is a valid move!" << std::endl;
-            return true;
-        }
-
-    //std::cout << "isValidMove: This is a NOT valid move!" << std::endl;
-    return false;
+void
+Piece::setInCheck(bool checkOrNot)
+{
+    inCheck = checkOrNot;
 }
 
 void

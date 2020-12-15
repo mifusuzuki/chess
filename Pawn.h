@@ -11,9 +11,8 @@ class Pawn : public Piece
 {
 public:
     Pawn(ChessBoard& ownerBoard, Game& game, bool kingOrNot, bool whiteOrNot, int initRow, int initCol);
+    void getAllPossibleMoves(SetOfCoords& possibleMoves) override;
     ~Pawn(){}
-    
-    void findPossibleMoves(SetOfCoords& possibleMoves) override;
     
 private:
     bool firstMove;

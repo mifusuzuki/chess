@@ -16,7 +16,7 @@ Rook::Rook(ChessBoard& ownerBoard, Game& game, bool kingOrNot, bool whiteOrNot, 
 }
 
 void
-Rook::findPossibleMoves(SetOfCoords& possibleMoves)
+Rook::getAllPossibleMoves(SetOfCoords& possibleMoves)
 {
     searchVerticalHorizontal(possibleMoves);
 }
