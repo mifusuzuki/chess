@@ -7,10 +7,8 @@
 #include "Constants.h"
 #include "Piece.h"
 
-/**************************************************************************
- * The bishop can move any number of squares diagonally, but may not leap 
- * over other pieces
-***************************************************************************/
+// The bishop can move any number of squares diagonally
+// but may not leap over other pieces.
 
 class Bishop : public Piece
 {

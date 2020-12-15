@@ -8,6 +8,16 @@ Game::Game()
     configureGame();
 }
 
+void
+Game::configureGame()
+{
+    whitesTurn = true;
+    checkMate = false;
+    staleMate = false;
+
+    std::cout << "A new game is started!" << std::endl;
+}
+
 bool
 Game::isWhitesTurn()
 {
@@ -57,14 +67,4 @@ Game::printGameStatus() const
     << "checkMate = " << checkMate << std::endl
     << "staleMate = " << staleMate << std::endl;
     return;
-}
-
-void
-Game::configureGame()
-{
-    whitesTurn = true;
-    checkMate = false;
-    staleMate = false;
-
-    std::cout << "A new game is started!" << std::endl;
 }

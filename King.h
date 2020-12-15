@@ -7,6 +7,8 @@
 #include "Constants.h"
 #include "Piece.h"
 
+// The king moves one square in any direction
+
 class King : public Piece
 {
 public:

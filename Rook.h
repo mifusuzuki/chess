@@ -7,6 +7,9 @@
 #include "Constants.h"
 #include "Piece.h"
 
+// The rook (or castle) can move any number of squares along
+// any rank or file, but may not leap over other pieces.
+
 class Rook : public Piece
 {
 public:

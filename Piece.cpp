@@ -293,6 +293,3 @@ Piece::searchVerticalHorizontal(SetOfCoords& possibleMoves)
         col ++;
     }
 }
-
-Piece::~Piece()
-{}
